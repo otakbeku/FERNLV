@@ -102,3 +102,12 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# Folder
+dataset
+base_dir
+__pycache__
+.idea
+*.dat
+*.dat.bz2
+*.xml
