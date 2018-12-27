@@ -6,7 +6,6 @@ import re
 import shutil
 import hashlib
 from tensorflow.python.util import compat
-from sklearn.metrics import classification_report
 import pickle
 
 EXTENSIONS = ['jpg', 'jpeg', 'JPG', 'JPEG']
@@ -30,6 +29,8 @@ FACE_CASCADES = {
     )
 }
 
+CASCADE_DEFAULT = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+
 
 def vec_normalization(eigen_vector):
     eigen_vector = np.asarray(eigen_vector)
@@ -46,16 +47,38 @@ def vec_normalization(eigen_vector):
     return eigen_vector
 
 
-def get_croppped_face(gray_scale_image: np.ndarray, y_plus=0, y_min=0, x_min=0, x_plus=0,
-                      face_cascade: cv2.CascadeClassifier = FACE_CASCADES['default']):
-    d = face_cascade.detectMultiScale(gray_scale_image, 1.3, 5)
+def get_cropped_face(image,
+                     y_plus=0, y_min=0, x_min=0, x_plus=0,
+                     face_cascade: cv2.CascadeClassifier =
+                     FACE_CASCADES['default']):
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # d = face_cascade.detectMultiScale(image_gray, 1.3, 5)
+    d = CASCADE_DEFAULT.detectMultiScale(image_gray, 1.3, 5)
     try:
         [[x, y, w, h]] = d
-        crop = gray_scale_image[y - y_min:y + h + y_plus, x - x_min:x + w + x_plus]
-        return crop, np.shape(crop)
+        crop = image_gray[y - y_min:y + h + y_plus, x - x_min:x + w + x_plus]
+        return crop, (x, y, w, h)
 
     except Exception as e:
         print("Err: ", str(e))
+        return None, (0, 0, 0, 0)
+
+
+def get_cropped_faces(image,
+                      y_plus=0, y_min=0, x_min=0, x_plus=0,
+                      face_cascade: cv2.CascadeClassifier =
+                      FACE_CASCADES['default']):
+    image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    # d = face_cascade.detectMultiScale(image_gray, 1.3, 5)
+    d = CASCADE_DEFAULT.detectMultiScale(image_gray, 1.3, 5)
+    try:
+        for x, y, w, h in d:
+            crop = image_gray[y - y_min:y + h + y_plus, x - x_min:x + w + x_plus]
+            return crop, (x, y, w, h)
+
+    except Exception as e:
+        print("Err: ", str(e))
+        return None, (0, 0, 0, 0)
 
 
 def image_to_vec(image, size):
@@ -128,7 +151,7 @@ def split_data_train_test_val(image_dir: str, base_dir: str,
             hash_name_hashed = hashlib.sha1(compat.as_bytes(hash_name)).hexdigest()
             temp: np.ndarray = cv2.imread(file_name, 0)
             if cropped:
-                temp, shape = get_croppped_face(temp)
+                temp, shape = get_cropped_face(temp)
             percentage_hash = ((int(hash_name_hashed, 16) %
                                 (MAX_NUM_IMAGES_PER_CLASS + 1)) *
                                (100.0 / MAX_NUM_IMAGES_PER_CLASS))
