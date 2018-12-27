@@ -1,6 +1,11 @@
 from flask import Flask, render_template, Response
 from Camera import VideoCamera
 
+'''
+ Having problem with the webcam: Not retrieving any frame but the webcam is active. It takes 2 days and no clue.
+  Better not to continue it. Start with QT and try to displaying the detected face
+'''
+
 app = Flask(__name__)
 
 Detected_face = []
