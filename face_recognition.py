@@ -38,5 +38,6 @@ class FaceRecognition:
                                               self.train_data['label'])
                     cv2.rectangle(image, (x, y), (x + w, y + h), (200, 50, 25), 2)
                     cv2.putText(image, '{}'.format(pred), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 1)
-                    crops.append(cv2.imencode('.jpg', crop)[1].tobytes())
+                    cv2.putText(crop, '{}'.format(pred), (40, 1), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 1)
+                    crops.append(crop)
             return image, crops

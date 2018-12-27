@@ -78,7 +78,7 @@ def get_cropped_faces(image,
 
     except Exception as e:
         print("Err: ", str(e))
-        return None, (0, 0, 0, 0)
+        return 0, (0, 0, 0, 0)
 
 
 def image_to_vec(image, size):
