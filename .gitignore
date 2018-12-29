@@ -104,7 +104,7 @@ venv.bak/
 .mypy_cache/
 
 # Folder
-dataset
+Dataset
 base_dir
 __pycache__
 .idea
