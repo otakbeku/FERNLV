@@ -69,8 +69,8 @@ def get_cropped_faces(image,
                       face_cascade: cv2.CascadeClassifier =
                       FACE_CASCADES['default']):
     image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    # d = face_cascade.detectMultiScale(image_gray, 1.3, 5)
-    d = CASCADE_DEFAULT.detectMultiScale(image_gray, 1.3, 5)
+    d = face_cascade.detectMultiScale(image_gray, 1.3, 5)
+    # d = CASCADE_DEFAULT.detectMultiScale(image_gray, 1.3, 5)
     try:
         for x, y, w, h in d:
             crop = image_gray[y - y_min:y + h + y_plus, x - x_min:x + w + x_plus]

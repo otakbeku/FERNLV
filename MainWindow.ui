@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1333</width>
+    <width>1111</width>
     <height>677</height>
    </rect>
   </property>
@@ -115,26 +115,13 @@
      <string>List of Captured Face</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="ClearButton">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>580</y>
-      <width>101</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Clear</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1333</width>
+     <width>1111</width>
      <height>21</height>
     </rect>
    </property>
