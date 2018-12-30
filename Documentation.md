@@ -13,7 +13,7 @@ To run this project, you need to install:
 ### Before Usage
 ****Please download all of haarcascade*.xml from this [link](https://github.com/opencv/opencv/tree/master/data/haarcascades) to provide the module. Put all of them on the `Assets` folder****
 
-All of the pickle file on the project is based on my example. It detect and recognize several character from MCU (_11 character: Tony Stark (not on ironman suit), Loki, Thanos, Bucky Barnes, Wanda Maximoff, Thor, Steve Rogers (not in Captain America suit), Natasha Romanoff, Dr Strange, T'Challa (not in black panther suit), Mantis_). If the face detected but the face is not in the list, it will give `unknown` label.
+All of the pickle file on the project is based on my example. It detect and recognize several character from MCU (_11 character: Tony Stark (not in ironman suit), Loki, Thanos, Bucky Barnes, Wanda Maximoff, Thor, Steve Rogers (not in Captain America suit), Natasha Romanoff, Dr Strange, T'Challa (not in black panther suit), Mantis_). If the face detected but the face is not in the list, it will give `unknown` label.
 
 
 After you installed all the requirement and download the XML file of haarcascade, you can use the project as well as on the example folder.
@@ -26,7 +26,7 @@ After you installed all the requirement and download the XML file of haarcascade
  ### EigenFace
  #### A.Training Phase
  
-![Training Phase](Training phase eigenface.png)
+![Training Phase](Training_phase_eigenface.png)
 
 
 steps:
@@ -89,7 +89,7 @@ steps:
  
  #### B. Usage Workflow (based on [this example](https://github.com/otakbeku/FERNLV/blob/master/Example/MainWindow.py))
  
- ![Usage Workflow](Testing_Usage Phase.png)
+ ![Usage Workflow](Testing_Usage_Phase.png)
  
  Steps:
  1. _Start the Webcam_: start with available channel. Default is 0. You can choose yours by defined the number on the blank box
