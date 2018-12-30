@@ -350,11 +350,11 @@ def minkowski_distance_point_to_data(point, data, p=2):
     distance = []
     for data_point in data:
         data_point = np.asarray(data_point)
-        distance.append(((sum((i - k) ** p for i, k in zip(data_point, point))) ** 1 / p))
+        distance.append(((sum((i - k) ** p for i, k in zip(data_point, point))) ** (1/p)))
     return distance
 
 
-def predict(image, average, eigen_face, weight, labels, dist_thredhold=0.3):
+def predict(image, average, eigen_face, weight, labels, dist_thredhold=9291122):
     """
     A Method that would return a predict of a given image
     :param image: the image must be 80% covered with face
@@ -369,11 +369,10 @@ def predict(image, average, eigen_face, weight, labels, dist_thredhold=0.3):
     unknown_omega = []
     for value in eigen_face:
         unknown_omega.append(np.dot(np.transpose(value), unknown_avg))
-
     unknown_omega = np.asarray(unknown_omega)
-    distance = np.argmin(minkowski_distance_point_to_data(unknown_omega, weight))
-    if distance <= dist_thredhold:
-        number = int(np.floor(distance * len(labels)) / len(weight))
+    distance_num = np.argmin(minkowski_distance_point_to_data(unknown_omega, weight))
+    if distance_num <= dist_thredhold:
+        number = int(np.floor(distance_num * len(labels)) / len(weight))
         return labels[number]
     else:
         return 'unknown'

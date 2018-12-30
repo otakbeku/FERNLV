@@ -124,7 +124,11 @@ class EigenFaceRecognition:
         else:
             image_gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             for (x, y, w, h) in self.face_cascade.detectMultiScale(image=image_gray, scaleFactor=1.3, minNeighbors=5):
-                crop = image_gray[y - 3:y + h + 3, x - 3:x + w + 3]
+                try:
+                    crop = image_gray[y - 3:y + h + 3, x - 3:x + w + 3]
+                except Exception as e:
+                    print('Error: ', e)
+                    crop = image_gray[y:y + h, x:x + w]
 
                 if hasattr(crop, 'shape'):
                     img_res = cv2.resize(crop, (32, 32))
@@ -134,8 +138,9 @@ class EigenFaceRecognition:
                                       self._train_data['label'])
                     cv2.rectangle(image, (x, y), (x + w, y + h), (200, 50, 25), 2)
                     cv2.putText(image, '{}'.format(pred), (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 255), 1)
-                    cv2.putText(crop, '{}'.format(pred), (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 255), 2)
                     if self._last_predict != pred:
                         crops.append(crop)
                         self._last_predict = pred
+                    cv2.putText(crop, '{}'.format(self._last_predict), (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1,
+                                (255, 0, 255), 2)
             return image, crops
